@@ -1,6 +1,6 @@
 let code = `
-//Settings
 
+//Settings
 GameEnvironement.gameName = 'Your Game Name';
 
 //--graphics--

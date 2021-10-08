@@ -71,7 +71,8 @@
         true
     );
     
-    testTitle('test ignoreCommentsFromCode');
+    
+
     let commentCode = `
         code
         //comment
@@ -121,7 +122,8 @@
         true
     )
 
-    testTitle('test getOneFunctionFromCode');
+    
+    
     let functionCode = ``;
 
     assert(
@@ -207,12 +209,9 @@
         //full comment line
     }`;
 
-    compiled = getOneFunctionFromCode(functionCode);
-    console.log(compiled.code);
-
     assert(
         'gets more advanced code with comments',
-        compiled.code == "console.log('hello world'); console.log('hello world2');",
+        getOneFunctionFromCode(functionCode).code == "console.log('hello world'); console.log('hello world2');",
         true
     )
 
