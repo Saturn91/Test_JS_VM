@@ -1,30 +1,6 @@
-var headers = {}
+let code = `
+//Settings
 
-let memory = {}
-
-function init() {
-    eval(`
-        console.log('initialize');
-        memory.test = 'yop';
-        memory.add = (a, b) => { return a+b; }
-    `);
-}
-
-function UpdateGame(deltaTime) {
-    eval(`
-        console.log('update! ' + memory.test);
-        console.log(memory.add(1,2));
-    `);  
-}
-
-function DrawGame(canvasHandler) {
-    eval(`
-        canvasHandler.drawText('hello', 10, 10, 'white', 300);
-        canvasHandler.drawSprite(7, 'main', 20, 20);
-    `);    
-}
-
-/* Settings */
 GameEnvironement.gameName = 'Your Game Name';
 
 //--graphics--
@@ -40,12 +16,31 @@ GameEnvironement.graphics.autoFitScreen = true;
 
 GameEnvironement.properties.debug = false;
 
-GameEnvironement.functions.update = UpdateGame;
-GameEnvironement.functions.draw = DrawGame;
-GameEnvironement.functions.init = init;
-
-//add spritesheets here:
+//add resources:
 addSpriteSheet('main', 'https://raw.githubusercontent.com/Saturn91/Saturn91JSEngine/ExampleProjectCoinCollector/assets/spriteSheet.png');
+
+function init() {
+    console.log('initialize');
+}
+
+function updateGame(deltaTime) {
+    console.log('update');
+}
+
+function drawGame(canvasHandler) {   
+    canvasHandler.drawText('hello', 10, 10, 'white', 300);
+    canvasHandler.drawSprite(7, 'main', 20, 20);
+}
+`;
+code = simplifyCode(code);
+let initInCode = code.includes('function init');
+let updateGameInCode = code.includes('function updateGame');
+let drawGameInCode = code.includes('function drawGame');
+eval(code);
+
+if(initInCode) GameEnvironement.functions.init = init; 
+if(updateGameInCode) GameEnvironement.functions.update = updateGame;
+if(drawGameInCode) GameEnvironement.functions.draw = drawGame;
 
 //create Game
 let engine = new Engine();
