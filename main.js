@@ -13,7 +13,26 @@ function CompileAndRun(code) {
     let engine = new Engine();
 }
 
+function readCodeFromURI() {
+    const queryString = decodeURI(window.location.search);
+    if(queryString.length > 0 ){
+        let uriCode = queryString.substring(1,queryString.length);
+        document.querySelector('[data-codeInput]').value = uriCode;
+    }
+}
+
+readCodeFromURI();
+
+function getUrlWithoutParameters() {
+    return window.location.href.split('?')[0];
+}
+
+document.getElementById('exportGameBtn').addEventListener(('click'), () => {
+    let url = getUrlWithoutParameters() + "?" + document.querySelector('[data-codeInput]').value;
+    alert('link was copied to your clipboard: \n \n if that was not the case, copy it below \n \n' + url);
+    navigator.clipboard.writeText(url);
+});
+
 document.getElementById('startGameBtn').addEventListener(('click'), () => {
-    //console.log(document.querySelector('[data-codeInput]').value);
     CompileAndRun(document.querySelector('[data-codeInput]').value);
 });

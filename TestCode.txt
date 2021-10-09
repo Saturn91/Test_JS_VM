@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
-    <script src="./scripts/simpleJSEngine/CanvasHandler.js"></script>
-    <script src="./scripts/simpleJSEngine/Engine.js"></script>
-    <script src="./scripts/simpleJSEngine/Renderer.js"></script>  
-    <script src="./scripts/gameCompiler/compile.service.js"></script>  
-    <script src="./scripts/utils/string.utils.js"></script>
-</head>
-<body>
-  <div class="gameHolder">
-    <div>
-      <h1 id="game-name">My Game</h1>
-      <textarea data-codeInput class='codeInputTextArea'>
-//Settings
 GameEnvironement.gameName = 'Saturn91 - get the woman!';
 GameEnvironement.functions.update = UpdateGame;
 GameEnvironement.functions.draw = DrawGame;
@@ -26,7 +8,6 @@ GameEnvironement.graphics.autoFitScreen = true;
 
 GameEnvironement.properties.debug = false;
 
-//add resources:
 addSpriteSheet('main', 'https://raw.githubusercontent.com/Saturn91/Saturn91JSEngine/ExampleProjectCoinCollector/assets/spriteSheet.png');
 
 let map = [];
@@ -48,7 +29,6 @@ let coin = {
         sprite: 7,
 };
 
-//Generate a 2d array which contains sprite numbers [y][x]
 function createMap() {
     let mapWidth = 20;
     let mapHeight = 16;
@@ -105,7 +85,6 @@ function collide(obj1, obj2) {
 }
 
 function UpdateGame(deltaTime) {
-    //move player
     let right = GameEnvironement.input.cmdDown['right'];
     let left = GameEnvironement.input.cmdDown['left'];
 
@@ -129,7 +108,6 @@ function UpdateGame(deltaTime) {
         }
     } 
     
-    //check if player is ontop of coin
     if(collide(player, coin)) {
         spanCoin();
 
@@ -153,14 +131,3 @@ function DrawGame(renderer) {
     renderer.drawText('score: ' + player.score, 130, 14, 'white', 100);
     
 }
-
-      </textarea>
-      <canvas id='canvasObject'></canvas>
-      <p>checkout <a href="https://saturn91.dev/" target="blank">Saturn91.dev</a></p>
-      <button id='startGameBtn'>Start Game</button>
-      <button id='exportGameBtn'>Share With your friends</button>
-    </div>    
-  </div>
-  <script src="./main.js"></script>  
-</body>
-</html>
