@@ -33,3 +33,8 @@
   .gameHolder p {
     color: rgb(150, 150, 150);
   }
+
+  .codeInputTextArea {
+    height: 80vh;
+    min-width: 40vw;
+  }
