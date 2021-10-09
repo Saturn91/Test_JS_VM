@@ -28,7 +28,8 @@ function getUrlWithoutParameters() {
 }
 
 document.getElementById('exportGameBtn').addEventListener(('click'), () => {
-    let url = getUrlWithoutParameters() + "?" + document.querySelector('[data-codeInput]').value;
+    let simplifiedCode = simplifyCode(document.querySelector('[data-codeInput]').value);
+    let url = getUrlWithoutParameters() + "?" + simplifiedCode;
     alert('link was copied to your clipboard: \n \n if that was not the case, copy it below \n \n' + url);
     navigator.clipboard.writeText(url);
 });
