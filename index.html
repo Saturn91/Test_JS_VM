@@ -16,7 +16,7 @@
       <h1 id="game-name">My Game</h1>
       <textarea data-codeInput class='codeInputTextArea'>
 //Settings
-GameEnvironement.gameName = 'Saturn91 - get the chest!';
+GameEnvironement.gameName = 'Saturn91 - get the woman!';
 GameEnvironement.functions.update = UpdateGame;
 GameEnvironement.functions.draw = DrawGame;
 GameEnvironement.functions.init = init;
@@ -47,6 +47,7 @@ let coin = {
         h: 8,
         sprite: 57,
 };
+
 
 //Generate a 2d array which contains sprite numbers [y][x]
 function createMap() {
@@ -86,8 +87,8 @@ function createMap() {
 }
 
 function spanCoin() {
-    coin.x = Math.round(Math.random() * (GameEnvironement.graphics.resolutionX-16)+8);
-    coin.y = Math.round(Math.random() * (GameEnvironement.graphics.resolutionY-16)+8);
+    coin.x = Math.round(Math.random() * (GameEnvironement.graphics.resolutionX-32)+16);
+    coin.y = Math.round(Math.random() * (GameEnvironement.graphics.resolutionY-32)+16);
 }
 
 function init() { 
@@ -109,13 +110,25 @@ function UpdateGame(deltaTime) {
     //move player
     let right = GameEnvironement.input.cmdDown['right'];
     let left = GameEnvironement.input.cmdDown['left'];
-
+    const minX = 4;
+    const maxX = (GameEnvironement.graphics.resolutionX-32)+20;
+    const minY = 8;
+    const maxY = (GameEnvironement.graphics.resolutionY-32)+16;
+    const delta = player.speed * deltaTime/1000;
     if((right &! left) || (left &! right)) {
         if(right) {
-            player.x += player.speed * deltaTime/1000;
+            if(player.x + delta <= maxX) {
+                player.x += delta;
+            } else {
+                player.x = maxX;
+            }
         }
         if(left) {
-            player.x -= player.speed * deltaTime/1000;
+            if(player.x - delta >= minX) {
+                player.x -= delta;
+            } else {
+                player.x = minX;
+            }
         }
     }
 
@@ -123,10 +136,19 @@ function UpdateGame(deltaTime) {
     let down = GameEnvironement.input.cmdDown['down'];
     if((up &! down) || (down &! up)) {
         if(up) {
-            player.y -= player.speed * deltaTime/1000;
+            if(player.y - delta >= minY) {
+                player.y -= delta;
+            } else {
+                player.y = minY;
+            }            
         }
         if(down) {
-            player.y += player.speed * deltaTime/1000;
+            if(player.y + delta <= maxY) {
+                player.y += delta;
+            } else {
+                player.y = maxY;
+            }
+            
         }
     } 
     
@@ -153,7 +175,8 @@ function DrawGame(renderer) {
     renderer.drawText("fps: " + Math.round(GameEnvironement.properties.actual_fps), 5, 14, 'white', 100);
     renderer.drawText('score: ' + player.score, 130, 14, 'white', 100);
     
-}</textarea>
+}                 
+        </textarea>
       <canvas id='canvasObject'></canvas>
       <p>checkout <a href="https://saturn91.dev/" target="blank">Saturn91.dev</a></p>
       <button id='startGameBtn'>Start Game</button>
