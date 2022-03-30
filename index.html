@@ -91,9 +91,10 @@ function spanCoin() {
 }
 
 function init() { 
-   createMap();
-   engine.addMap('main-map', 'main', map);
-   spanCoin(); 
+    createMap();
+    engine.addMap('main-map', 'main', map);
+    spanCoin(); 
+    engine.addAudio('pling', 'https://raw.githubusercontent.com/Saturn91/Saturn91JSEngine/ExampleProjectCoinCollector/assets/audio/collect_coin.wav');
 }
 
 function collide(obj1, obj2) {
@@ -101,7 +102,7 @@ function collide(obj1, obj2) {
         || obj1.y > obj2.y + obj2.h
         || obj1.x + obj1.w < obj2.x
         || obj1.x > obj2.x + obj2.w) return false;
-     return true;
+        return true;
 }
 
 function UpdateGame(deltaTime) {
@@ -132,7 +133,7 @@ function UpdateGame(deltaTime) {
     //check if player is ontop of coin
     if(collide(player, coin)) {
         spanCoin();
-
+        engine.playAudio('pling');
         player.score += 1;
     }
 }
@@ -152,9 +153,7 @@ function DrawGame(renderer) {
     renderer.drawText("fps: " + Math.round(GameEnvironement.properties.actual_fps), 5, 14, 'white', 100);
     renderer.drawText('score: ' + player.score, 130, 14, 'white', 100);
     
-}
-
-      </textarea>
+}</textarea>
       <canvas id='canvasObject'></canvas>
       <p>checkout <a href="https://saturn91.dev/" target="blank">Saturn91.dev</a></p>
       <button id='startGameBtn'>Start Game</button>

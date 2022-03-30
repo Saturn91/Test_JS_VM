@@ -198,7 +198,12 @@ class Engine {
      */
     addAudio(audioName, pathToFile) {
         GameEnvironement.sounds.sfx[audioName] = new Audio(pathToFile);
-    }    
+    }   
+    
+    playAudio(audioName) {
+        const sfx = GameEnvironement.sounds.sfx[audioName];
+        if (!sfx.isPaused) sfx.play();
+    }
 }
 
 /**
